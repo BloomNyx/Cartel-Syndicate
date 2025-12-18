@@ -1,0 +1,31 @@
+/* =========================
+   Mafia Font Import
+========================= */
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");
+
+/* =========================
+   Font Classes
+========================= */
+
+/* 메인 타이틀 / 메뉴 (강렬, 마피아 느낌) */
+.oswald {
+    font-family: "Oswald", sans-serif;
+}
+
+/* 고급스러운 스토리 / 인트로 */
+.playfair {
+    font-family: "Playfair Display", serif;
+}
+
+/* 타자기 / 범죄 기록 / 미스테리 */
+.special {
+    font-family: "Special Elite", cursive;
+}
+
+/* 단서 / 로그 / 서브 텍스트 */
+.courier {
+    font-family: "Courier Prime", monospace;
+}

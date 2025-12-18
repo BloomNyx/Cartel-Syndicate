@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> The_Eterno_Imperium</title>
+    <link rel="icon" type="image/svg+xml" href="public/roes.svg">
+    <link rel="stylesheet" href="src/assets/css/style.css">
+  </head>
+  <body>
+    <div id="loader">
+      <!-- cctv -->
+      <div class="loading loading--cctv">
+        <div class="cctv__grid"></div>
+
+        <div class="loading__text">
+          <p class="text--red">REC ●</p>
+          <p>YOU ARE ALREADY INVOLVED</p>
+        </div>
+      </div>
+
+      <!-- 몰라 -->
+      <div class="loading loading--interrogation">
+        <div class="interrogation__room">
+          <div class="interrogation__light"></div>
+        </div>
+
+        <div class="loading__text">
+          <p>ANSWER CAREFULLY</p>
+          <p class="text--dim">LOVE OR LOYALTY?</p>
+        </div>
+      </div>
+
+      <!-- 실 -->
+      <div class="loading loading--thread">
+        <svg class="thread__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <!-- 메인 실 -->
+          <path class="thread thread--main" />
+
+          <!-- 분기들 (JS에서 생성) -->
+          <g class="thread__branches"></g>
+
+          <!-- 피 방울 -->
+          <g class="thread__blood"></g>
+        </svg>
+
+        <div class="loading__text">
+          <p>Bound, not chosen</p>
+          <p class="text--dim">Fate doesn’t ask</p>
+        </div>
+        <p class="thread__ending">
+          Fate is no longer singular.
+        </p>
+      </div>
+
+
+      <!-- 총 -->
+      <div class="loading loading--shot">
+        <div class="shot__bg"></div>
+
+        <div class="shot__scene">
+          <img
+            src="src/assets/img/shot.png"
+            alt="after the shot"
+            class="shot__image"
+          />
+          <div class="shot__flash"></div>
+          <div class="shot__smoke"></div>
+        </div>
+
+        <div class="loading__text">
+          <p>It already happened</p>
+          <p class="text--dim">Now live with it</p>
+        </div>
+      </div>
+
+      <!-- ROOM -->
+      <div class="loading loading--hallway"> 
+        <div class="hallway__perspective"></div>
+
+        <div class="hallway__doors">
+          <span class="door">401</span>
+          <span class="door">402</span>
+          <span class="door">403</span>
+          <span class="door door--target">404</span>
+
+          <!-- 접근하는 점 -->
+          <div class="hallway__dot"></div>
+        </div>
+
+        <div class="loading__text">
+          <p>ROOM 404</p>
+          <p class="text--dim">Some doors should stay closed</p>
+        </div>
+</div>
+
+
+      <!-- rose -->
+      <div class="loading loading--rose">
+        <div class="rose__symbol"></div>
+        <div class="blood__drops">
+          <span class="drop"></span>
+          <span class="drop"></span>
+          <span class="drop"></span>
+        </div>
+
+        <div class="loading__text">
+          <p>Every love stains</p>
+          <p class="text--dim">Romance never stays clean</p>
+        </div>
+      </div>
+
+      <!-- 계약서 -->
+      <!-- <div class="loading loading--pact">
+        <div class="pact__stage">
+          <div class="pact__envelope"></div>
+
+          <div class="pact__paper">
+            <div class="pact__ornament top"></div>
+
+            <div class="pact__content">
+              <h2>BLOOD PACT</h2>
+              <p>
+                By signing this contract, you bind yourself<br />
+                beyond love, beyond loyalty.
+              </p>
+
+              <div class="pact__signature-wrap">
+                <div class="signature__line"></div>
+                <div class="signature__ink"></div>
+                <div class="signature__quill-shadow"></div>
+              </div>
+            </div>
+
+            <div class="pact__ornament bottom"></div>
+          </div>
+        </div> -->
+
+<!-- 
+        <div class="loading__text">
+          <p>Once signed, there is no escape</p>
+          <p class="text--dim">This love is irreversible</p>
+        </div>
+      </div> -->
+
+    <script type="module" src="src/assets/js/main.js"></script>
+  </body>
+</html>

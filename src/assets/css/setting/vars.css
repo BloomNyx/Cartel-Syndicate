@@ -1,0 +1,68 @@
+:root {
+    /* =========================
+       Font Variables
+    ========================= */
+    --mainEng-font: "Oswald", sans-serif;
+    --mainKor-font: "Playfair Display", serif;
+    --mainNum-font: "Courier Prime", monospace;
+
+    /* =========================
+       Color Variables (Mafia)
+    ========================= */
+    --mainBg-color: #0f0f0f;
+
+    --subBg100: #1c1c1c;
+    --subBg200: #2a2a2a;
+    --subBg300: #3a2f2f;
+    --subBg400: #4a3a3a;
+    --subBg500: #6b1f1f;   /* 다크 레드 */
+
+    /* 💛 Gold Accent */
+    --gold100: #f5e6b8;    /* 아주 밝은 골드 (라인/텍스트) */
+    --gold200: #e6c87a;    /* 기본 골드 */
+    --gold300: #c9a24d;    /* 딥 골드 (포인트) */
+    --gold400: #8f6b2e;    /* 브론즈 톤 */
+
+    --white: #f5f5f5;
+    --black: #000;
+    --black100: #e6e6e6;
+    --black200: #bdbdbd;
+    --black300: #8a8a8a;
+    --black400: #3a3a3a;
+
+    /* =========================
+       Base Typography
+    ========================= */
+    font-family: var(--mainEng-font), var(--mainKor-font);
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+
+    /* =========================
+       Font Rendering
+    ========================= */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    -webkit-text-size-adjust: 100%;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 800px) {
+    :root {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+}
+
+/* =========================
+   Body
+========================= */
+body {
+    color: var(--black100);
+    background-color: var(--mainBg-color);
+}
