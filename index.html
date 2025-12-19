@@ -31,48 +31,36 @@
         </div>
       </div>
 
-      <!-- 실 -->
-      <div class="loading loading--thread">
-        <svg class="thread__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <!-- 메인 실 -->
-          <path class="thread thread--main" />
+      <!-- 달 -->
+      <div class="loading loading--redmoon">
+        <!-- 🌕 달 전용 레이어 -->
+        <div class="moon-layer">
+          <div class="moon">
+            <div class="moon-base"></div>
+            <div class="moon-fill"></div>
+          </div>
+        </div>
 
-          <!-- 분기들 (JS에서 생성) -->
-          <g class="thread__branches"></g>
-
-          <!-- 피 방울 -->
-          <g class="thread__blood"></g>
-        </svg>
-
+        <!-- 텍스트는 별도 -->
         <div class="loading__text">
           <p>Bound, not chosen</p>
-          <p class="text--dim">Fate doesn’t ask</p>
-        </div>
-        <p class="thread__ending">
-          Fate is no longer singular.
-        </p>
-      </div>
-
-
-      <!-- 총 -->
-      <div class="loading loading--shot">
-        <div class="shot__bg"></div>
-
-        <div class="shot__scene">
-          <img
-            src="src/assets/img/shot.png"
-            alt="after the shot"
-            class="shot__image"
-          />
-          <div class="shot__flash"></div>
-          <div class="shot__smoke"></div>
-        </div>
-
-        <div class="loading__text">
-          <p>It already happened</p>
-          <p class="text--dim">Now live with it</p>
+          <p class="red">Fate doesn’t ask</p>
         </div>
       </div>
+
+
+
+      <!-- 시계 장미 -->
+       <div class="loading loading--chess">
+  <div class="chess-board">
+    <div class="piece king">♚</div>
+    <div class="piece queen">♕</div>
+  </div>
+
+  <p class="typewriter"></p>
+</div>
+
+
 
       <!-- ROOM -->
       <div class="loading loading--hallway"> 
@@ -111,38 +99,24 @@
       </div>
 
       <!-- 계약서 -->
-      <!-- <div class="loading loading--pact">
-        <div class="pact__stage">
-          <div class="pact__envelope"></div>
+      <div class="loading loading--luxury-noir">
+  <!-- 카지노 카드 레이어 -->
+  <div class="casino-layer">
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+  </div>
 
-          <div class="pact__paper">
-            <div class="pact__ornament top"></div>
+  <!-- 로고 -->
+  <div class="logo-wrap">
+    <h1 class="emboss-logo">THE ETERNO IMPERIUM</h1>
+    <span class="light-sweep"></span>
+  </div>
+  
+</div>
 
-            <div class="pact__content">
-              <h2>BLOOD PACT</h2>
-              <p>
-                By signing this contract, you bind yourself<br />
-                beyond love, beyond loyalty.
-              </p>
 
-              <div class="pact__signature-wrap">
-                <div class="signature__line"></div>
-                <div class="signature__ink"></div>
-                <div class="signature__quill-shadow"></div>
-              </div>
-            </div>
-
-            <div class="pact__ornament bottom"></div>
-          </div>
-        </div> -->
-
-<!-- 
-        <div class="loading__text">
-          <p>Once signed, there is no escape</p>
-          <p class="text--dim">This love is irreversible</p>
-        </div>
-      </div> -->
-
+        
     <script type="module" src="src/assets/js/main.js"></script>
   </body>
 </html>

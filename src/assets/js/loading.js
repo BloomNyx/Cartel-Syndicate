@@ -124,266 +124,83 @@ function interrogationTimeline() {
 // ===============================
 // 3️⃣ THREAD – FATE STRING
 // ===============================
-function fateThreadTimeline() {
-  const mainThread = document.querySelector('.thread--main')
-  const branchGroup = document.querySelector('.thread__branches')
-  const bloodGroup = document.querySelector('.thread__blood')
-  const endingText = document.querySelector('.thread__ending')
 
-  if (!mainThread) return
+export function redMoonTimeline() {
+  const moon = document.querySelector('.moon-base')
+  if (!moon) return
 
-  const startX = 50
-  let cycle = 0
-  const MAX_CYCLE = 4
+  // 초기 상태
+  gsap.set(moon, {
+    clipPath: 'inset(0 100% 0 0)',
+    backgroundColor: '#ffffff',
+    scale: 1
+  })
 
-  function startCycle() {
-    cycle++
+  const tl = gsap.timeline({
+    defaults: { ease: 'power3.inOut' }
+  })
 
-    /* 초기화 */
-    branchGroup.innerHTML = ''
-    bloodGroup.innerHTML = ''
-    gsap.set(endingText, { opacity: 0 })
+  /* 🌙 1. 오른쪽에서 부드럽게 차오름 */
+  tl.to(moon, {
+    clipPath: 'inset(0 0% 0 0)',
+    duration: 4
+  })
 
-    mainThread.setAttribute('d', `M ${startX} 0 L ${startX} 100`)
-    gsap.set(mainThread, {
-      strokeDasharray: 120,
-      strokeDashoffset: 120,
-      opacity: 1
-    })
+  /* 🔴 2. 초승달부터 붉게 물듦 (선명한 레드) */
+  .to(moon, {
+    backgroundColor: '#e60000', // 선명한 붉은색
+    boxShadow: `
+      0 0 25px rgba(230,0,0,0.6),
+      0 0 60px rgba(230,0,0,0.4),
+      0 0 120px rgba(230,0,0,0.2)
+    `,
+    duration: 3
+  }, '-=3') // 초승달 시점
 
-    const tl = gsap.timeline()
+  /* 💓 3. 보름달 맥박 */
+  .to(moon, {
+    scale: 1.05,
+    duration: 0.8,
+    yoyo: true,
+    repeat: 1,
+    ease: 'sine.inOut'
+  })
+  .to(moon, {
+  filter: 'brightness(1.2) saturate(1.4)',
+  duration: 1
+}, '-=1')
 
-    /* 1️⃣ 메인 실 */
-    tl.to(mainThread, {
-      strokeDashoffset: 0,
-      duration: 1.4,
-      ease: 'power2.out'
-    })
 
-    /* 2️⃣ 분기 생성 */
-    tl.call(() => {
-      const isEnding = cycle === MAX_CYCLE
-      const branchCount = isEnding ? 12 : 6 + cycle * 3
-
-      let created = []
-
-      for (let i = 0; i < branchCount; i++) {
-        const burst = isEnding ? Math.pow(2, i) : 1
-
-        for (let j = 0; j < burst; j++) {
-          const y = isEnding
-            ? gsap.utils.random(15, 85)
-            : gsap.utils.random(28, 65)
-
-          const dir = Math.random() > 0.5 ? 1 : -1
-
-          const length = isEnding
-            ? gsap.utils.random(90, 160)
-            : gsap.utils.random(14, 26)
-
-          const curve = gsap.utils.random(8, 20)
-
-          const branch = document.createElementNS(
-            'http://www.w3.org/2000/svg',
-            'path'
-          )
-
-          branch.setAttribute(
-            'd',
-            `
-            M ${startX} ${y}
-            C ${startX + curve * dir} ${y + 10},
-              ${startX + length * dir} ${y + 18},
-              ${startX + length * dir} ${y + 28}
-          `
-          )
-
-          branch.classList.add('thread', 'thread--branch')
-          branchGroup.appendChild(branch)
-          created.push(branch)
-
-          gsap.fromTo(
-            branch,
-            { strokeDasharray: 100, strokeDashoffset: 100 },
-            {
-              strokeDashoffset: 0,
-              duration: isEnding ? 0.9 : 0.8,
-              delay: isEnding
-                ? i * 0.05 + j * 0.002   // 🔥 엔딩 폭주
-                : i * 0.06,
-              ease: 'power2.out'
-            }
-          )
-
-          /* 🩸 피는 엔딩 제외 */
-          if (!isEnding && Math.random() > 0.35) {
-            const dropX = startX + length * dir
-
-            const drop = document.createElementNS(
-              'http://www.w3.org/2000/svg',
-              'circle'
-            )
-
-            drop.setAttribute('cx', dropX)
-            drop.setAttribute('cy', y + 28)
-            drop.setAttribute('r', 1)
-            drop.classList.add('blood')
-            bloodGroup.appendChild(drop)
-            created.push(drop)
-
-            gsap.to(drop, {
-              cy: 96,
-              opacity: 0,
-              duration: 1.1,
-              ease: 'power1.in',
-              onComplete: () => {
-                const stain = document.createElementNS(
-                  'http://www.w3.org/2000/svg',
-                  'circle'
-                )
-                stain.setAttribute('cx', dropX)
-                stain.setAttribute('cy', 96)
-                stain.setAttribute('r', 1.6)
-                stain.classList.add('blood')
-                stain.style.opacity = 0.6
-                bloodGroup.appendChild(stain)
-                created.push(stain)
-
-                gsap.fromTo(
-                  stain,
-                  { scale: 0.6 },
-                  {
-                    scale: gsap.utils.random(2.2, 3),
-                    opacity: 0.3,
-                    duration: 1.2,
-                    ease: 'power2.out'
-                  }
-                )
-              }
-            })
-          }
-        }
-      }
-
-      /* 3️⃣ 전체 소멸 */
-      tl.to(
-        created,
-        {
-          opacity: 0,
-          duration: isEnding ? 1.4 : 0.9,
-          ease: 'power2.in'
-        },
-        isEnding ? '+=0.8' : '+=1'
-      )
-
-      tl.to(mainThread, {
-        opacity: 0,
-        duration: isEnding ? 1.4 : 0.9,
-        ease: 'power2.in',
-        onComplete: () => {
-          if (isEnding) {
-            /* 4️⃣ 엔딩 텍스트 */
-            gsap.to(endingText, {
-              opacity: 1,
-              duration: 1.6,
-              ease: 'power2.out'
-            })
-          } else {
-            startCycle()
-          }
-        }
-      })
-    })
-  }
-
-  startCycle()
+  return tl
 }
 
 
 // ===============================
 // 4️⃣ AFTER THE SHOT – FLASH
 // ===============================
-function shotTimeline() {
-  const image = document.querySelector('.shot__image')
-  const flash = document.querySelector('.shot__flash')
-  const smoke = document.querySelector('.shot__smoke')
-  const bg = document.querySelector('.shot__bg')
+export function chessLoading() {
+  const lines = [
+    "증거를 인멸하는 중...",
+    "비밀 거래를 준비 중...",
+    "타겟을 추적 중...",
+    "배신자를 선별하는 중..."
+  ];
 
-  const lenis = new Lenis({ lerp: 0.05 })
-  function raf(time) {
-    lenis.raf(time)
-    requestAnimationFrame(raf)
-  }
-  requestAnimationFrame(raf)
+  const el = document.querySelector(".typewriter");
+  if (!el) return;
 
-  const tl = gsap.timeline({
-    repeat: -1,
-    repeatDelay: 1.8
-  })
+  const text = lines[Math.floor(Math.random() * lines.length)];
+  let i = 0;
 
-tl
-  /* 1️⃣ 시작 상태 */
-  .set(bg, { backgroundColor: '#fff' })
-  .set(image, {
-    x: 0,
-    y: 0
-  })
+  el.textContent = "";
 
-  /* 2️⃣ 왼쪽 → 중앙 (느리고 부드럽게) */
-  .to(image, {
-    x: window.innerWidth * 0.5,
-    duration: 2.6,              // ⬅ 더 느리게
-    ease: 'power3.out'           // ⬅ 더 부드럽게
-  })
-
-  /* 2-1️⃣ 거의 멈추듯 감속 */
-  .to(image, {
-    x: '+=8',                    // 아주 살짝만 더 이동
-    duration: 0.4,
-    ease: 'power1.out'
-  })
-
-  /* 3️⃣ 정적 (긴장 유지) */
-  .to({}, { duration: 0.35 })
-
-  /* 4️⃣ 총성 순간 */
-  .to(bg, {
-    backgroundColor: '#000',
-    duration: 0.05,
-    ease: 'none'
-  })
-
-  /* 5️⃣ 플래시 */
-  .to(flash, { opacity: 1, duration: 0.03 })
-  .to(flash, { opacity: 0, duration: 0.15 })
-
-  /* 6️⃣ 반동 */
-  .to(image, {
-    x: '+=40',
-    duration: 0.06,
-    ease: 'power4.out'
-  })
-  .to(image, {
-    x: '-=20',
-    duration: 0.25,
-    ease: 'power2.out'
-  })
-
-/* 7️⃣ 붉은 연기 확산 */
-.to(smoke, {
-  opacity: 0.75,
-  scale: 1.25,          // ⬅ 크게 퍼짐
-  duration: 0.6,
-  ease: 'power2.out'
-})
-.to(smoke, {
-  opacity: 0,
-  scale: 1.6,           // ⬅ 더 넓게 확산
-  duration: 1.3,
-  ease: 'power2.in'
-})
-
+  const typing = setInterval(() => {
+    el.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(typing);
+  }, 80);
 }
+
 
 // ===============================
 // 5️⃣ HALLWAY – CAMERA PUSH
@@ -506,60 +323,6 @@ function roseTimeline() {
 // ===============================
 // 7️⃣ BLOOD PACT – SIGN
 // ===============================
-// export function bloodPactTimeline(onFinish) {
-//   const stage = document.querySelector('.pact__stage')
-//   const paper = document.querySelector('.pact__paper')
-//   const ink = document.querySelector('.signature__ink')
-//   const quill = document.querySelector('.signature__quill-shadow')
-//   const envelope = document.querySelector('.pact__envelope')
-//   const text = document.querySelector('.loading__text')
-
-//   gsap.set([stage, text], { opacity: 0 })
-//   gsap.set(ink, { width: 0 })
-//   gsap.set(quill, { opacity: 0 })
-
-//   const tl = gsap.timeline()
-
-//   tl
-//     /* 등장 */
-//     .to(stage, { opacity: 1, duration: 0.6 })
-
-//     /* 서명 */
-//     .to(quill, { opacity: 1, duration: 0.3 })
-//     .to(ink, {
-//       width: '100%',
-//       duration: 2,
-//       ease: 'power2.out',
-//       onUpdate() {
-//         gsap.set(quill, { x: ink.offsetWidth })
-//       }
-//     }, '<')
-//     .to(quill, { opacity: 0, duration: 0.3 })
-
-//     /* 봉투로 들어감 */
-//     .to(paper, {
-//       y: 130,
-//       scale: 0.95,
-//       duration: 1.4,
-//       ease: 'power2.inOut'
-//     }, '+=0.2')
-
-//     /* 봉투 + 계약서만 사라짐 */
-//     .to([paper, envelope], {
-//       opacity: 0,
-//       duration: 1
-//     })
-
-//     /* 텍스트 유지 */
-//     .to(text, {
-//       opacity: 1,
-//       duration: 1.2
-//     })
-
-//   tl.eventCallback('onComplete', () => {
-//     if (onFinish) onFinish()
-//   })
-// }
 
 
 // ===============================
@@ -577,11 +340,11 @@ export function loading() {
     case 'loading--interrogation':
       interrogationTimeline()
       break
-    case 'loading--thread':
-      fateThreadTimeline()
+    case 'loading--redmoon':
+      redMoonTimeline()
       break
-    case 'loading--shot':
-      shotTimeline()
+    case 'loading--chess':   // ✅ 추가
+      chessLoading()
       break
     case 'loading--hallway':
       hallwayTimeline()
@@ -589,8 +352,5 @@ export function loading() {
     case 'loading--rose':
       roseTimeline()
       break
-    // case 'loading--pact':
-    //   bloodPactTimeline()
-    //   break
   }
 }
